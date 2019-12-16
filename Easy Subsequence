@@ -1,0 +1,69 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class EasySubsequenceSelection {
+
+	public static void main(String[] args) {
+		try {
+			Scanner scn = new Scanner(System.in);
+			int t = scn.nextInt();
+			while (t != 0) {
+				
+				int n = scn.nextInt();
+				String str = scn.next();
+				
+//				System.out.println(uniqueCharacters(str));
+				func(n,str);
+				
+
+				t--;
+			}
+		} catch (Exception e) {
+			return;
+		}
+
+	}
+	
+	
+	public static void func(int n,String str) {
+
+		int gap = Integer.MAX_VALUE;
+		HashMap<Character, Integer> map = new HashMap<>();
+				
+		for (char ch = 'a'; ch <= 'z'; ++ch) 
+			  map.put(Character.valueOf(ch), -1);
+		
+		for(int i=0;i<n;i++) {
+			
+			if(uniqueCharacters(str)) {
+				System.out.println("0");
+				break;
+			}
+			
+			int x=map.get(str.charAt(i));
+			
+			if(x!=-1) // character is already present in the string
+				gap = Math.min(gap, i- x);
+				
+			map.put(str.charAt(i), i);
+			
+		}
+//		System.out.println(map);
+		if(!uniqueCharacters(str))
+			System.out.println(n-gap);//k
+		
+	}
+	public static boolean uniqueCharacters(String str) 
+    { 
+        
+        for (int i = 0; i < str.length(); i++) 
+            for (int j = i + 1; j < str.length(); j++) 
+                if (str.charAt(i) == str.charAt(j)) 
+                    return false; 
+  
+        return true; 
+    } 
+		
+	
+
+}
