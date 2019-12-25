@@ -1,0 +1,33 @@
+package Hashing;
+
+import java.util.HashSet;
+
+public class subArraySumis0 {
+
+	public static void main(String[] args) {
+		
+		int []arr= {-3, 2, 1, 2, 6};
+		if(func(arr)) {
+			System.out.println("there is a subarray with sum = 0");
+		}
+		else {
+			System.out.println("there is no subarray present with sum=0");
+		}
+		
+	}
+	 
+	public static boolean func(int[]arr) {
+		 
+		HashSet<Integer>h = new HashSet<>();
+		int sum=0;
+		 for(int i:arr) {
+			 sum+=i; 
+			 if(sum==0 || h.contains(sum)) {
+				 return true; 
+			 }
+			 h.add(sum);
+		 }
+		return false; 
+
+	}
+}
