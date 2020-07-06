@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+void hasPathHelper(vector<vector<int>>&edges , int V , vector<bool>&visited , int sv , int ev){
+    
+    visited[sv] = true;
+    for(int i=0 ; i<V ; i++){
+        if(i == sv){
+            continue;
+        }
+        if(edges[sv][i] == 1){
+            if(visited[i] == true){
+                continue;
+            }
+            hasPathHelper(edges,V,visited , i , ev);
+        }
+    }
+}
+
+void hasPath(vector<vector<int>>edges , int V , int sv , int ev){
+    vector<bool>visited(V,false);
+
+    hasPathHelper(edges , V , visited , sv , ev);
+
+    if(visited[ev] == false){
+        cout<<"false"<<endl;
+    }
+    else{
+        cout<<"true"<<endl;
+    }
+
+}
+
+int main() {
+    int V, E; 
+    cin >> V >> E;
+
+    vector<vector<int>>edges(V,vector<int>(V,0));
+
+    for(int i=0 ; i<E ; i++){
+        int f,s;
+        cin>>f>>s;
+        edges[f][s] = 1;
+        edges[s][f] = 1;
+    }
+
+    int sv,ev;
+    cin>>sv>>ev;
+    // cout<<"has Path ? : ";
+    hasPath(edges , V , sv , ev);
+
+    return 0;
+}
