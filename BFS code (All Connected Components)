@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void printBFS(vector<vector<int>>edges , int V , int sv , vector<bool>&visited ){
+
+    queue<int>pendingVertices;
+    
+    pendingVertices.push(sv);
+    visited[sv] = true;
+
+    while(!pendingVertices.empty()){
+        int currentVertex = pendingVertices.front();
+        pendingVertices.pop();
+        // print the poped vertex
+        cout<<currentVertex<<endl;
+
+        for(int i = 0; i<V ; i++){
+            if( i == currentVertex){continue;}
+
+            if(edges[currentVertex][i] == 1 && visited[i] == false){
+                pendingVertices.push(i);
+                visited[i] = true;
+            }
+        }
+    }
+}
+
+void BFS(vector<vector<int>>edges , int V){
+    vector<bool>visited(V,false);
+
+    for(int i=0;i<V;i++){
+        if(!visited[i]){
+            // cout<<endl;
+            printBFS(edges , V , i , visited);
+        }
+    }
+}
+
+
+
+int main() {
+    int V, E; 
+    cin >> V >> E;
+
+    vector<vector<int>>edges(V,vector<int>(V,0));
+
+    for(int i=0 ; i<E ; i++){
+        int f,s;
+        cin>>f>>s;
+        edges[f][s] = 1;
+        edges[s][f] = 1;
+    }
+   
+    
+    cout<<"BFS is :"<<endl;
+    BFS(edges , V );
+
+}
